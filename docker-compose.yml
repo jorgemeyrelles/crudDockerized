@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  node_backend:
+    container_name: node_abc
+    image: node_abc:0.0.1
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - EXTERNAL_PORT=3001
+      - PGDATABASE=$DATABASE
+      - PGUSER=$USER
+      - PGPASSWORD=$PASS
+      - PGHOST=node_db
+    depends_on:
+      - node_db
+    command: bash -c 'while !</dev/tcp/node_db/5432; do sleep 1; done; npm run dev'
+  node_db:
+    container_name: node_db
+    image: "postgres:12"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=$USER
+      - POSTGRES_PASSWORD=$PASS
+      - POSTGRES_DB=$DATABASE
+    volumes:
+      - nps_data:/var/lib/postgresql/nps_data
+
+volumes:
+  nps_data: {}
