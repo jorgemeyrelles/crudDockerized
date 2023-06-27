@@ -4,9 +4,9 @@ const sequelize = require("../utils/database");
 
 exports.getOneByPk = async (req, res, next) => {
   try {
-    const columns = "people.id, people.name, people.cpf, contacts.type, contacts.description";
-    const innerJoin = "INNER JOIN contacts ON people.id = contacts.idPerson";
-    const query = `SELECT ${columns} FROM people ${innerJoin} WHERE people.id = :id`;
+    const columns = "*";
+    const innerJoin = 'INNER JOIN "contacts" ON "people"."id" = "contacts"."idPerson"';
+    const query = `SELECT ${columns} FROM "people" ${innerJoin} WHERE "idPerson"."id" = :id`;
     const one = await sequelize.query(query, {
       replacements: { id: parseInt(req.params.id) },
       type: sequelize.QueryTypes.SELECT
@@ -47,9 +47,9 @@ exports.getAll = async (req, res, next) => {
   try {
     // :id do usuario
     console.log(req.params.id);
-    const columns = "people.id, people.name, people.cpf, contacts.type, contacts.description";
-    const innerJoin = "INNER JOIN contacts ON people.id = contacts.idPerson AND people.idUser = :id";
-    const query = `SELECT ${columns} FROM people ${innerJoin}`;
+    const columns = "*";
+    const innerJoin = `INNER JOIN "contacts" ON "people"."id" = "contacts"."idPerson" AND "people"."idUser" = :id`;
+    const query = `SELECT ${columns} FROM "people" ${innerJoin}`;
     const all = await sequelize.query(query, {
       replacements: { id: parseInt(req.params.id) },
       type: sequelize.QueryTypes.SELECT
