@@ -7,7 +7,7 @@ const { REACT_APP_API, NODE_ENV } = process.env;
 // const BASE_URL_LOCAL = 'http://localhost:3001/api/v1';
 
 const environment = {
-  development: "http://localhost:3001/api/v1",
+  development: "http://localhost:3001/",
   production: REACT_APP_API,
 }
 console.log(environment[NODE_ENV]);

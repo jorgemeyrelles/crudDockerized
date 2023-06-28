@@ -13,6 +13,7 @@ import { api } from '../../service/api';
 import BasicModal from '../Modal';
 import { GlobalContext } from '../../Context/StageGlobal';
 import { DataGrid } from '@mui/x-data-grid';
+import { useParams } from 'react-router';
 
 export default function ListHome() {
   const [checked, setChecked] = useState([1]);
@@ -45,12 +46,15 @@ export default function ListHome() {
       .then((response) => setOpen({ display: true, data: response.data }));
     // return setOpen({ display: true, data: res });
   };
-
+  const id = useParams();
+  
   useEffect(() => {
-    api.getList()
-      .then((response) => {
-        setArr(response.data);
-      });
+    if (Object.values(id).length > 0) {
+      api.getList(id)
+        .then((response) => {
+          setArr(response.data);
+        });
+    }
   }, [newInList]);
 
   useEffect(() => {

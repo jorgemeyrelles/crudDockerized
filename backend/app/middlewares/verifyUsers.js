@@ -7,7 +7,7 @@ exports.getOneByEmail = async (req, res, next) => {
         email: req.body.email,
       }
     });
-
+    console.log(one);
     if (one === null) {
       return res.status(500).json({ error: "Not found" });
     }

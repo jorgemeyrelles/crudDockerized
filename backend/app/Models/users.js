@@ -17,10 +17,10 @@ const User = db.define('users', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  phone: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
+  // phone: {
+  //   type: Sequelize.STRING,
+  //   allowNull: true,
+  // },
   password: {
     type: Sequelize.STRING,
     allowNull: false,

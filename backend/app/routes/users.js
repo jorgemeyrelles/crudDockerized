@@ -6,7 +6,7 @@ const router = require('express').Router();
 router
   .get('/all', controller.getAll)
   .post('/', verify.getExistUser, controller.createOne)
-  .get('/one', verify.getOneByEmail, controller.getOne)
+  .get('/one', controller.getOne)
   .put('/:id', controller.updateOne)
   .delete('/:id', controller.deleteOne);
 

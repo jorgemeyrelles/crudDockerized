@@ -2,11 +2,11 @@
 import { axiosInstance } from "./axiosUtils";
 
 export const api = {
-  getList: async () => {
+  getList: async (idUser) => {
     try {
       const clients = await axiosInstance.request({
         method: 'GET',
-        url: 'list/all',
+        url: `list/${idUser}/all`,
       });
       return clients.data;
     } catch (error) {
@@ -53,10 +53,12 @@ export const api = {
     try {
       const clients = await axiosInstance.request({
         method: 'GET',
-        url: 'login',
-        params: value,
+        url: 'login/one/',
+        config: value,
+        data: value,
+        params: value
       });
-      return clients.data;
+      return clients;
     } catch (error) {
       return error;
     }
@@ -66,7 +68,7 @@ export const api = {
       const clients = await axiosInstance.request({
         method: 'GET',
         url: 'login/one',
-        params: value,
+        config: value,
         data: value,
       });
       return clients.data;
@@ -79,18 +81,21 @@ export const api = {
       const clients = await axiosInstance.request({
         method: 'POST',
         url: 'login',
-        params: value,
+        config: value,
+        data: value,
       });
       return clients.data;
     } catch (error) {
       return error;
     }
   },
-  editUser: async (value) => {
+  editUser: async (value, idUser) => {
     try {
       const clients = await axiosInstance.request({
         method: 'PUT',
-        url: 'login',
+        url: `login/${idUser}`,
+        config: value,
+        data: value,
         params: value,
       });
       return clients.data;

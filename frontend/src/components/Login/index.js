@@ -17,10 +17,18 @@ function ToLogin() {
 
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
   useEffect(() => {
-    const { username, password } = insertOne;
+    const { email, password } = insertOne;
     const checkPassword = password.length >=6 && password.length <= 8;
-    const checkUsername = username.length >= 6 && username.length <= 15;
+    const checkUsername = validateEmail(email);
     if (err.alert) {
       setErr(({ alert: false, value: { title: '', type: '', msg: '' } }));
     }
@@ -37,10 +45,13 @@ function ToLogin() {
 
   const handleClick = (e) => {
     try {
+      console.log(e);
       setErr({ alert: false, value: { title: '', type: '', msg: '' } });
-      if (e.username !== '') {
+      console.log(e);
+      if (e.email !== '') {
         api.getLogin(e)
           .then((response) => {
+            console.log(response);
             if (response.name === 'AxiosError') {
               setErr({ alert: true, value: {
                 title: "Erro ao logar",
@@ -91,8 +102,8 @@ function ToLogin() {
           style={{ padding: '10px' }}
           onChange={(e) => handleChange(e.target)}
           id="outlined-basic"
-          name="username"
-          label="username"
+          name="email"
+          label="email"
           variant="outlined"
           required
         />

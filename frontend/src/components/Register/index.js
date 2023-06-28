@@ -62,7 +62,7 @@ function ToRegister() {
 
   const handleClick = (e) => {
     if (e.username !== '') {
-      checkUserExist(e);
+      // checkUserExist(e);
       const register = goToRegister(e);
       return register;
     }
@@ -101,6 +101,17 @@ function ToRegister() {
         />
         <TextField
           type="text"
+          style={{ padding: '10px' }}
+          onChange={(e) => handleChange(e.target)}
+          id="outlined-basic"
+          name="email"
+          label="email"
+          variant="outlined"
+          placeholder='Min de 6 e Máx de 15'
+          required
+        />
+        <TextField
+          type="password"
           onChange={(e) => handleChange(e.target)}
           style={{ padding: '10px' }}
           id="outlined-basic"
@@ -111,7 +122,7 @@ function ToRegister() {
           required
         />
         <TextField
-          type="text"
+          type="password"
           onChange={(e) => handleChange(e.target)}
           style={{ padding: '10px' }}
           id="outlined-basic"

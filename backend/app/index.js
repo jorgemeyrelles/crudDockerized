@@ -2,14 +2,18 @@ const express = require('express');
 const dev = require('./routes/dev');
 const users = require('./routes/users');
 const lists = require('./routes/lists');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-const sequelize = require('./utils/database');
-const User = require('./Models/users');
+app.use(cors());
 
-app.use((express.json()));
+const sequelize = require('./utils/database');
+
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

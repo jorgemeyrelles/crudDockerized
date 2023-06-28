@@ -11,14 +11,16 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
+    console.log(req);
     const data = {
-      email: req.body.email,
-      password: req.body.password,
+      email: req.query.email,
+      password: req.query.password,
     };
+    console.log(data);
     try {
       const user = await User.findOne({
           where: {
-            email: data.email,
+            email: req.query.email,
           }
         });
       return res.status(200).json(user);  
@@ -35,7 +37,7 @@ exports.createOne = async (req, res, next) => {
     const data = {
       username: req.body.username,
       email: req.body.email,
-      phone: req.body.phone,
+      // phone: req.body.phone,
       password: req.body.password,
     };
     try {
@@ -55,7 +57,7 @@ exports.updateOne = async (req, res, next) => {
     const data = {
       username: req.body.username,
       email: req.body.email,
-      phone: req.body.phone,
+      // phone: req.body.phone,
       password: req.body.password,
     };
     try {

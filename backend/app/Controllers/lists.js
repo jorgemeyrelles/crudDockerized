@@ -6,7 +6,7 @@ exports.getOneByPk = async (req, res, next) => {
   try {
     const columns = "*";
     const innerJoin = 'INNER JOIN "contacts" ON "people"."id" = "contacts"."idPerson"';
-    const query = `SELECT ${columns} FROM "people" ${innerJoin} WHERE "idPerson"."id" = :id`;
+    const query = `SELECT ${columns} FROM "people" ${innerJoin} WHERE "contacts"."idPerson" = :id`;
     const one = await sequelize.query(query, {
       replacements: { id: parseInt(req.params.id) },
       type: sequelize.QueryTypes.SELECT
@@ -136,7 +136,7 @@ exports.updatePerson = async (req, res, next) => {
     try {
       const updated = await Person.update(data, {
         where: {
-          id: req.params.id,
+          id: req.body.id,
         }
       });
       return res.status(200).json(updated);
@@ -158,7 +158,7 @@ exports.updateContact = async (req, res, next) => {
     try {
       const updated = await Contact.update(data, {
         where: {
-          id: req.params.id,
+          id: req.body.id,
         }
       });
       return res.status(200).json(updated);
@@ -175,7 +175,7 @@ exports.deletePerson = async (req, res, next) => {
     // :id da pessoa
     const deleted = await Person.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       }
     });
     return res.status(200).json(deleted);
@@ -189,7 +189,7 @@ exports.deleteOneContact = async (req, res, next) => {
     // :id do contato
     const deleted = await Contact.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       }
     });
     return res.status(200).json(deleted);
@@ -203,7 +203,7 @@ exports.deleteAllContact = async (req, res, next) => {
     // :id da pessoa
     const deleted = await Contact.destroy({
       where: {
-        idPerson: req.params.id,
+        idPerson: req.body.id,
       }
     });
     return res.status(200).json(deleted);
