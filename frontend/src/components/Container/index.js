@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 
 export default function MainContainer({children}) {
@@ -12,13 +12,15 @@ export default function MainContainer({children}) {
 
   const check = JSON.parse(localStorage.getItem('check'));
   const pathname = window.location.pathname === "/register";
+  const id = useParams();
+
   useEffect(() => {
     if ((check === null && !check) && !pathname) {
       localStorage.clear();
       navigate("/login");
     }
     if (check) {
-      navigate("/home");
+      navigate(`/home/${id.id}`);
     }
   }, [check]);
   

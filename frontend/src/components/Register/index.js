@@ -46,6 +46,7 @@ function ToRegister() {
 
   const goToRegister = async (e) => {
     const res = await api.postRegister(e);
+    console.log(res);
     localStorage.clear();
     if (res.name === 'AxiosError') {
       setErr({ alert: true, value: {
@@ -57,7 +58,7 @@ function ToRegister() {
     };
     localStorage.setItem('user', JSON.stringify({ data: e }));
     localStorage.setItem('check', true);
-    return navigate("/home");
+    return navigate(`/home/${res.id}`);
   };
 
   const handleClick = (e) => {
@@ -107,7 +108,7 @@ function ToRegister() {
           name="email"
           label="email"
           variant="outlined"
-          placeholder='Min de 6 e Máx de 15'
+          placeholder='youremail@mail.com'
           required
         />
         <TextField

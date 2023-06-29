@@ -13,23 +13,11 @@ export const api = {
       return error;
     }
   },
-  getOneFromList: async (value) => {
+  getOneFromList: async (value, idUser) => {
     try {
       const clients = await axiosInstance.request({
         method: 'GET',
-        url: 'list/one',
-        params: { id: value },
-      });
-      return clients.data;
-    } catch (error) {
-      return error;
-    }
-  },
-  postOneContact: async (value) => {
-    try {
-      const clients = await axiosInstance.request({
-        method: 'POST',
-        url: 'list/contact',
+        url: `list/${idUser}`,
         params: value,
       });
       return clients.data;
@@ -37,11 +25,23 @@ export const api = {
       return error;
     }
   },
-  postOnePerson: async (value) => {
+  postOneContact: async (value, idUser) => {
     try {
       const clients = await axiosInstance.request({
         method: 'POST',
-        url: 'list/person',
+        url: `list/${idUser}/contact`,
+        params: value,
+      });
+      return clients.data;
+    } catch (error) {
+      return error;
+    }
+  },
+  postOnePerson: async (value, idUser) => {
+    try {
+      const clients = await axiosInstance.request({
+        method: 'POST',
+        url: `list/${idUser}`,
         params: value,
       });
       return clients.data;
@@ -54,9 +54,7 @@ export const api = {
       const clients = await axiosInstance.request({
         method: 'GET',
         url: 'login/one/',
-        config: value,
-        data: value,
-        params: value
+        params: value,
       });
       return clients;
     } catch (error) {
@@ -68,8 +66,10 @@ export const api = {
       const clients = await axiosInstance.request({
         method: 'GET',
         url: 'login/one',
+        body: { data: value },
         config: value,
         data: value,
+        params: value,
       });
       return clients.data;
     } catch (error) {

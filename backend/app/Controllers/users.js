@@ -1,4 +1,5 @@
 const User = require("../Models/users");
+const { hashPassword } = require("../middlewares/bcrypt");
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -11,7 +12,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
-    console.log(req);
+    console.log('body', req.body, 'query', req.query, 'params', req.params);
     const data = {
       email: req.query.email,
       password: req.query.password,
@@ -34,11 +35,13 @@ exports.getOne = async (req, res, next) => {
 
 exports.createOne = async (req, res, next) => {
   try {
+    const password = await hashPassword(req.body.password);
+    console.log(password, req.body);
     const data = {
       username: req.body.username,
       email: req.body.email,
       // phone: req.body.phone,
-      password: req.body.password,
+      password: password,
     };
     try {
       const created = await User.create(data);

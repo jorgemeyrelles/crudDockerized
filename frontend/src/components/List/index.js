@@ -43,22 +43,23 @@ export default function ListHome() {
 
   const handleClickOne = (id) => {
     api.getOneFromList(id)
-      .then((response) => setOpen({ display: true, data: response.data }));
+      .then((response) => setOpen({ display: true, data: response }));
     // return setOpen({ display: true, data: res });
   };
   const id = useParams();
   
   useEffect(() => {
     if (Object.values(id).length > 0) {
-      api.getList(id)
+      api.getList(id.id)
         .then((response) => {
-          setArr(response.data);
+          setArr(response);
         });
     }
   }, [newInList]);
 
   useEffect(() => {
     const check = {};
+
     arr.length > 0 && arr.map((e) => {
       return check[e.id] = e;
     });

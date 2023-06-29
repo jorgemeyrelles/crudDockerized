@@ -60,10 +60,10 @@ function ToLogin() {
               } });
               throw Error;
             };
-            localStorage.setItem('user', JSON.stringify(response));
+            localStorage.setItem('user', JSON.stringify(response.data));
             localStorage.setItem('check', true);
             setLogin(true);
-            navigate("/home");
+            navigate(`/home/${response.data.id}`);
           });
       }
     } catch (error) {

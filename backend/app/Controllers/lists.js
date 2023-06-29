@@ -4,7 +4,7 @@ const sequelize = require("../utils/database");
 
 exports.getOneByPk = async (req, res, next) => {
   try {
-    const columns = "*";
+    const columns = '"people"."name", "people"."cpf", "contacts"."type", "contacts"."description"';
     const innerJoin = 'INNER JOIN "contacts" ON "people"."id" = "contacts"."idPerson"';
     const query = `SELECT ${columns} FROM "people" ${innerJoin} WHERE "contacts"."idPerson" = :id`;
     const one = await sequelize.query(query, {
@@ -34,7 +34,7 @@ exports.getOneByName = async (req, res, next) => {
   try {
     const one = await Person.findOne({
       where: {
-        name: req.body.name,
+        name: req.query.name,
       }
     });
     return res.status(200).json(one);
@@ -47,7 +47,7 @@ exports.getAll = async (req, res, next) => {
   try {
     // :id do usuario
     console.log(req.params.id);
-    const columns = "*";
+    const columns = '"people"."name", "people"."cpf", "contacts"."type", "contacts"."description"';
     const innerJoin = `INNER JOIN "contacts" ON "people"."id" = "contacts"."idPerson" AND "people"."idUser" = :id`;
     const query = `SELECT ${columns} FROM "people" ${innerJoin}`;
     const all = await sequelize.query(query, {
@@ -81,9 +81,9 @@ exports.getAll = async (req, res, next) => {
 exports.insertOnePerson = async (req, res, next) => {
   try {
     console.log(
-      req.body.name,
-      req.body.cpf,
-      req.params.id
+      req.query,
+      req.body,
+      req.params
     );
     const data = {
       name: req.body.name,
