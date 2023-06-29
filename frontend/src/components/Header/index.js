@@ -69,7 +69,7 @@ export default function Header() {
   
   useMemo(() => {
     if (data) {
-      setUser(data.data.username);
+      setUser(data.username);
     }
   }, [anchorEl, mobileMoreAnchorEl]);
 

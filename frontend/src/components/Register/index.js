@@ -56,7 +56,7 @@ function ToRegister() {
       } });
       return navigate("/register");
     };
-    localStorage.setItem('user', JSON.stringify({ data: e }));
+    localStorage.setItem('user', JSON.stringify(e));
     localStorage.setItem('check', true);
     return navigate(`/home/${res.id}`);
   };
